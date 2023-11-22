@@ -6,6 +6,8 @@ services:
     image: nginx:latest
     ports:
       - "80:80"
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
 
   app:
     build:
@@ -13,7 +15,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./src:/var/www/html
+      - ./app:/app
     depends_on:
       - db
 
@@ -26,11 +28,9 @@ services:
       MYSQL_PASSWORD: admin
     ports:
       - "3306:3306"
-
-  cron:
-    build:
-      context: .
     volumes:
-      - ./src:/var/www/html
-    depends_on:
-      - db
+      - mysqldb:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysqldb:

@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace app\src;
 
 class CurrencyConverter
 {
@@ -33,7 +33,7 @@ class CurrencyConverter
         return $result;
     }
 
-    private function getExchangeRate($currencyCode)
+    private function getExchangeRate($currencyCode): float
     {
         // Получаем курс из базы данных или другого источника
         // Пример: $query = $this->db->prepare("SELECT rate FROM exchange_rates WHERE currency_code = ?");

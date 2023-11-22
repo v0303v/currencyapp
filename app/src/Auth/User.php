@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Auth;
+namespace app\src\Auth;
 
 class User
 {

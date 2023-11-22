@@ -1,36 +1,27 @@
-# Use the official PHP image with Apache
-FROM php:7.4-apache
+FROM php:7.4-fpm
 
-# Enable Apache modules and install dependencies
-RUN a2enmod rewrite
+WORKDIR /var/www
+
 RUN apt-get update && apt-get install -y \
+    zip \
+    unzip \
+    curl \
+    libzip-dev \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql
+    zlib1g \
+    libwebp-dev libjpeg62-turbo-dev libpng-dev libxpm-dev libfreetype6-dev \
+    cron
 
-# Set the working directory
-WORKDIR /var/www/html
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy project files to the container
-COPY .. /var/www/html
+RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install zip
 
-# Install Composer
+RUN pecl install https://xdebug.org/files/xdebug-3.1.2.tgz \
+    && docker-php-ext-enable xdebug
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install project dependencies
-RUN composer install
+COPY ./app .
 
-# Expose port 80
-EXPOSE 80
-
-# Start Apache
-CMD ["apache2-foreground"]
-
-# Install cron
-RUN apt-get update && apt-get -y install cron
-
-# Copy the script and make it executable
-COPY cronjob /etc/cron.d/cronjob
-RUN chmod 0644 /etc/cron.d/cronjob
-
-# Run the cron job
-CMD ["cron", "-f"]
+CMD ["php-fpm"]
