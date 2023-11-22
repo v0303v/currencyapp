@@ -1,6 +1,6 @@
 <?php
 
-namespace app\src;
+namespace app;
 
 class CurrencyConverter
 {

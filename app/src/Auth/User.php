@@ -1,23 +1,45 @@
 <?php
 
-namespace app\src\Auth;
+namespace app\Auth;
+
+use app\Database\DatabaseConnection;
+use Exception;
 
 class User
 {
     private $db;
 
-    public function __construct(\PDO $db)
+    public function __construct()
     {
-        $this->db = $db;
+        $database = new DatabaseConnection();
+        $this->db = $database->getPdo();
     }
 
     public function register($username, $password)
     {
-        // Реализация регистрации пользователя в базе данных
+
     }
 
-    public function login($username, $password)
+    /**
+     * @param array $data
+     * @return bool|string
+     */
+    public function login(array $data)
     {
-        // Реализация авторизации пользователя
+        try {
+            $check = $this->db->prepare("SELECT * FROM users WHERE username=? AND password=?");
+            $check->execute([
+                $data['username'],
+                md5($data['password'])
+            ]);
+
+            $user = $check->fetchAll();
+            if (count($user) == 0) {
+                return false;
+            }
+            return true;
+        } catch (Exception $ex) {
+            return $ex->getMessage();
+        }
     }
 }

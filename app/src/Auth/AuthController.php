@@ -1,6 +1,6 @@
 <?php
 
-namespace app\src\Auth;
+namespace app\Auth;
 
 class AuthController
 {
@@ -14,15 +14,5 @@ class AuthController
     public function registerUser($username, $password)
     {
         $this->user->register($username, $password);
-        // Дополнительные действия при успешной регистрации
-    }
-
-    public function loginUser($username, $password)
-    {
-        if ($this->user->login($username, $password)) {
-            // Дополнительные действия при успешной авторизации
-        } else {
-            // Обработка ошибки авторизации
-        }
     }
 }
