@@ -3,7 +3,6 @@
 namespace app\Auth;
 
 use app\CurrencyHandler\CurrencyParser;
-use app\Database\DatabaseConnection;
 
 class LoginController
 {
@@ -13,7 +12,6 @@ class LoginController
     {
         $this->user = new User();
     }
-
 
     public function loginUser($post)
     {
