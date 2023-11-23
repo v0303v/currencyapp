@@ -2,7 +2,8 @@
 
 namespace app\Auth;
 
-use app\CurrencyHandler\CurrencyParser;
+use app\CurrencyHandler\CurrencyConverter;
+use app\CurrencyHandler\CurrencyJob;
 
 class LoginController
 {
@@ -13,13 +14,16 @@ class LoginController
         $this->user = new User();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function loginUser($post)
     {
-        if (isset($post)) {
-//           var_dump($this->user->login($post));
-            echo "<pre>";
-           print_r((new CurrencyParser())->parseCurrencyRates());
-            echo "</pre>";
-        }
+//        if (isset($post)) {
+            (new CurrencyJob())->execute();
+//        }
+
+        var_dump((new CurrencyConverter())->convertFromRubles(100, 'EUR'));
+        var_dump((new CurrencyConverter())->converttoRubles(100, 'EUR'));
     }
 }

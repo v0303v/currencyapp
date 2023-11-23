@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<!--    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+    <!--    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
     <style>
-body {
-    height: 100vh;
+        body {
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #f8f9fa;
         }
 
-        .container {
-    max-width: 400px;
+        .containerbox {
+            max-width: 400px;
             width: 100%;
             padding: 15px;
             border: 1px solid #dee2e6;

@@ -33,11 +33,11 @@ class CurrencyParser
 
     /**
      * Реализация сохранения курсов в базу данных
-     * @param $data
+     * @param array $data
      * @return void
      * @throws \Exception
      */
-    private function saveCurrencyRatesToDatabase($data)
+    private function saveCurrencyRatesToDatabase(array $data)
     {
         $this->datetime = new DateTime('now', new DateTimeZone('Asia/Tashkent'));
         $date = $this->datetime->format('Y-m-d H:i:s');

@@ -1,7 +1,7 @@
 <?php include 'header.php';?>
 <body>
 
-<div class="container">
+<div class="containerbox">
     <h2 class="text-center mb-4">Register</h2>
     <form action="#" method="post">
         <div class="mb-3">

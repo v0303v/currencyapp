@@ -11,9 +11,9 @@ switch ($url) {
     case '/registration':
         include '../views/registration.php';
         break;
-//    case '/currency':
-//        include '../views/currency.php';
-//        break;
+    case '/currency':
+        include '../views/currency.php';
+        break;
     default:
         header('HTTP/1.0 404 Not Found');
         break;

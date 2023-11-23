@@ -21,7 +21,7 @@ class CurrencyJob
     {
         if (!$this->isDataPresent()) {
             (new CurrencyParser())->parseCurrencyRates();
-            echo "Job completed.\n";
+            // echo "Job completed.\n";
         }
         return false;
     }

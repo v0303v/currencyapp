@@ -3,6 +3,8 @@
 namespace app\CurrencyHandler;
 
 use app\Database\DatabaseConnection;
+use Exception;
+use PDO;
 
 class CurrencyConverter
 {
@@ -14,38 +16,59 @@ class CurrencyConverter
         $this->db = $database->getPdo();
     }
 
-    public function convertToRubles($amount, $currencyCode)
+    /**
+     * @param float $amount
+     * @param string $currencyCode
+     * @return string
+     */
+    public function convertToRubles(float $amount,string $currencyCode): string
     {
-        // Получаем курс валюты из базы данных или другого источника
         $exchangeRate = $this->getExchangeRate($currencyCode);
-
-        // Проводим конвертацию
         $result = $amount * $exchangeRate;
-
-        return $result;
+        return $result . ' ' . $currencyCode;
     }
 
-    public function convertFromRubles($amount, $currencyCode)
+    /**
+     * @param float $amount
+     * @param string $currencyCode
+     * @return string
+     */
+    public function convertFromRubles(float $amount, string $currencyCode): string
     {
-        // Получаем курс валюты из базы данных или другого источника
         $exchangeRate = $this->getExchangeRate($currencyCode);
-
-        // Проводим конвертацию
         $result = $amount / $exchangeRate;
-
-        return $result;
+        return $result . ' ' . $currencyCode;
     }
 
-    private function getExchangeRate($currencyCode): float
+    /**
+     * Получаем курс из базы данных
+     * @param string $currencyCode
+     * @return float
+     */
+    private function getExchangeRate(string $currencyCode): float
     {
-        // Получаем курс из базы данных или другого источника
-        // Пример: $query = $this->db->prepare("SELECT rate FROM exchange_rates WHERE currency_code = ?");
-        // $query->execute([$currencyCode]);
-        // $exchangeRate = $query->fetchColumn();
+        try {
+            $query = $this->db->prepare("SELECT value FROM currencies WHERE char_code = ?");
+            $query->execute([$currencyCode]);
 
-        // Здесь нужно реализовать логику получения курса валюты
+            $currencyData = $query->fetch(PDO::FETCH_ASSOC);
 
-        // Возвращаем тестовое значение для примера
-        return 70.0;
+            if (!$currencyData) {
+                return false;
+            }
+
+            return $currencyData['value'];
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getCurrenciesList(): array
+    {
+        $query = $this->db->query("SELECT char_code, name FROM currencies");
+        return $query->fetchAll(PDO::FETCH_KEY_PAIR);
     }
 }

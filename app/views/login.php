@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <body>
 
-    <div class="container">
+    <div class="containerbox">
         <h2 class="text-center mb-4">Login</h2>
         <form action="" method="post">
             <div class="mb-3">
