@@ -8,6 +8,7 @@ switch ($url) {
         include '../views/login.php';
         break;
     case '/login':
+        (new \app\Handler())->loginUser();
         break;
     case '/registration':
         include '../views/registration.php';

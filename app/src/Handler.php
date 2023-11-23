@@ -24,4 +24,18 @@ class Handler
             'fromResult' => $fromResult
         ]);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function loginUser()
+    {
+        $login = new \app\Auth\LoginController();
+
+        $result = $login->loginUser($_POST);
+
+        echo json_encode([
+            'result' => $result
+        ]);
+    }
 }

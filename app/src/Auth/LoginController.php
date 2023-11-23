@@ -2,7 +2,6 @@
 
 namespace app\Auth;
 
-use app\CurrencyHandler\CurrencyConverter;
 use app\CurrencyHandler\CurrencyJob;
 
 class LoginController
@@ -21,8 +20,6 @@ class LoginController
     {
         (new CurrencyJob())->execute();
 
-//        if (isset($post)) {
-//        }
-
+        return $this->user->login($post);
     }
 }

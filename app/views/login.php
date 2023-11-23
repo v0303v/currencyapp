@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<body>
+    <body>
     <div class="containerbox">
         <h2 class="text-center mb-4">Login</h2>
         <form action="" method="post">
@@ -22,11 +22,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
-            <button type="submit" id="loginBtn" class="btn btn-primary btn-block">Login</button>
+            <button type="button" id="loginBtn" class="btn btn-primary btn-block">Login</button>
         </form>
         <div class="text-center mt-3">
-            <p>Don't have an account? <a href="">Register here</a>.</p>
+            <p>Don't have an account? <a href="#" id="registerHereLink">Register here</a>.</p>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#loginBtn').click(function () {
+                var username = $('#username').val();
+                var password = $('#password').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'login',
+                    data: {
+                        username: username,
+                        password: password
+                    },
+                    success: function (response) {
+                        var result = JSON.parse(response);
+                        if (result.result === true) {
+                            window.location.href = 'currency';
+                        } else {
+                            alert('неправильное имя пользователя или пароль!');
+                        }
+                    }
+                });
+            });
+
+            $('#registerHereLink').click(function (e) {
+                e.preventDefault();
+                window.location.href = 'registration';
+            });
+        });
+    </script>
 
 <?php include 'footer.php'; ?>
