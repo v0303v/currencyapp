@@ -34,6 +34,7 @@ class User
             ]);
 
             $user = $check->fetchAll();
+
             if (count($user) == 0) {
                 return false;
             }

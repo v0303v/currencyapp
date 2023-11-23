@@ -2,6 +2,7 @@
 
 namespace app\Auth;
 
+use app\CurrencyHandler\CurrencyParser;
 use app\Database\DatabaseConnection;
 
 class LoginController
@@ -13,12 +14,14 @@ class LoginController
         $this->user = new User();
     }
 
+
     public function loginUser($post)
     {
-        var_dump($post);die;
-
         if (isset($post)) {
-            $this->user->login($post);
+//           var_dump($this->user->login($post));
+            echo "<pre>";
+           print_r((new CurrencyParser())->parseCurrencyRates());
+            echo "</pre>";
         }
     }
 }

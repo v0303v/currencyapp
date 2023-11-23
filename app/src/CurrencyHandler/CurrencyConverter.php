@@ -1,6 +1,8 @@
 <?php
 
-namespace app;
+namespace app\CurrencyHandler;
+
+use app\Database\DatabaseConnection;
 
 class CurrencyConverter
 {
@@ -8,7 +10,8 @@ class CurrencyConverter
 
     public function __construct(\PDO $db)
     {
-        $this->db = $db;
+        $database = new DatabaseConnection();
+        $this->db = $database->getPdo();
     }
 
     public function convertToRubles($amount, $currencyCode)
