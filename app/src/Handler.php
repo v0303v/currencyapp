@@ -38,4 +38,15 @@ class Handler
             'result' => $result
         ]);
     }
+
+    public function registerUser()
+    {
+        $register = new \app\Auth\RegistrationController();
+
+        $result = $register->registerUser($_POST);
+
+        echo json_encode([
+            'result' => $result
+        ]);
+        }
 }

@@ -16,7 +16,7 @@ class LoginController
     /**
      * @throws \Exception
      */
-    public function loginUser($post)
+    public function loginUser(array $post)
     {
         (new CurrencyJob())->execute();
 

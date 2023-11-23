@@ -13,6 +13,9 @@ switch ($url) {
     case '/registration':
         include '../views/registration.php';
         break;
+    case '/register':
+        (new \app\Handler())->registerUser();
+        break;
     case '/currency':
         include '../views/currency.php';
         break;

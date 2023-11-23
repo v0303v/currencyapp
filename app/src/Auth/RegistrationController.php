@@ -11,8 +11,12 @@ class RegistrationController
         $this->user = new User();
     }
 
-    public function registerUser($post)
+    /**
+     * @param $post
+     * @return string
+     */
+    public function registerUser($post): string
     {
-
+        return $this->user->register($post['username'], $post['password']);
     }
 }

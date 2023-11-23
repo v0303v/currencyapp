@@ -15,7 +15,12 @@ class User
         $this->db = $database->getPdo();
     }
 
-    public function register($username, $password)
+    /**
+     * @param string $username
+     * @param string $password
+     * @return string
+     */
+    public function register(string $username, string $password): string
     {
         try {
             $checkUsername = $this->db->prepare("SELECT * FROM users WHERE username = ?");
@@ -24,7 +29,7 @@ class User
             $existingUser = $checkUsername->fetchAll();
 
             if (count($existingUser) > 0) {
-                return "Username exists.";
+                return "Имя пользователя уже занято.";
             }
 
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
@@ -32,7 +37,7 @@ class User
             $insertUser = $this->db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
             $insertUser->execute([$username, $hashedPassword]);
 
-            return true;
+            return "Пользователь создан.";
 
         } catch (Exception $ex) {
             return $ex->getMessage();

@@ -12,20 +12,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <body>
     <div class="containerbox">
-        <h2 class="text-center mb-4">Login</h2>
+        <h2 class="text-center mb-4">Авторизоваться</h2>
         <form action="" method="post">
             <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label">Имя пользователя</label>
                 <input type="text" class="form-control" id="username" name="username">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Пароль</label>
                 <input type="password" class="form-control" id="password" name="password">
             </div>
-            <button type="button" id="loginBtn" class="btn btn-primary btn-block">Login</button>
+            <button type="button" id="loginBtn" class="btn btn-primary btn-block">Войти</button>
         </form>
         <div class="text-center mt-3">
-            <p>Don't have an account? <a href="#" id="registerHereLink">Register here</a>.</p>
+            <p>У вас нет учетной записи? <a href="#" id="registerHereLink">Зарегистрируйтесь здесь</a>.</p>
         </div>
     </div>
 
