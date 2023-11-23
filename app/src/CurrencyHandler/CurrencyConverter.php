@@ -17,27 +17,35 @@ class CurrencyConverter
     }
 
     /**
-     * @param float $amount
+     * @param float|null $amount
      * @param string $currencyCode
      * @return string
      */
-    public function convertToRubles(float $amount,string $currencyCode): string
+    public function convertToRubles(?float $amount, string $currencyCode): string
     {
-        $exchangeRate = $this->getExchangeRate($currencyCode);
-        $result = $amount * $exchangeRate;
-        return $result . ' ' . $currencyCode;
+        if (!empty($amount) && !is_null($amount)) {
+            $exchangeRate = $this->getExchangeRate($currencyCode);
+            $result = $amount * $exchangeRate;
+            return $result . ' RUB';
+        }
+
+        return 0;
     }
 
     /**
-     * @param float $amount
+     * @param float|null $amount
      * @param string $currencyCode
      * @return string
      */
-    public function convertFromRubles(float $amount, string $currencyCode): string
+    public function convertFromRubles(?float $amount, string $currencyCode): string
     {
-        $exchangeRate = $this->getExchangeRate($currencyCode);
-        $result = $amount / $exchangeRate;
-        return $result . ' ' . $currencyCode;
+        if (!empty($amount) && !is_null($amount)) {
+            $exchangeRate = $this->getExchangeRate($currencyCode);
+            $result = $amount / $exchangeRate;
+            return $result . ' ' . $currencyCode;
+        }
+
+        return 0;
     }
 
     /**

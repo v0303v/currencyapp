@@ -1,10 +1,12 @@
 <?php include 'header.php'; ?>
 
-<?php require_once '../src/CurrencyHandler/CurrencyConverter.php'; ?>
+<?php require_once '../src/CurrencyHandler/CurrencyConverter.php';
 
-<body>
+$currencies = (new \app\CurrencyHandler\CurrencyConverter())->getCurrenciesList(); ?>
 
-<<div class="container mt-5">
+    <body>
+
+<div class="container mt-5">
     <h1 class="mb-4">Конвертер валют</h1>
 
     <form action="" method="post" class="mb-4">
@@ -18,11 +20,9 @@
                 <label for="fromCurrency" class="form-label">Из валюты:</label>
                 <select id="fromCurrency" name="fromCurrency" class="form-select">
                     <?php
-                    $currencies = $this->getCurrenciesList();
-                    var_dump($currencies);
-//                    foreach ($currencies as $currencyCode => $currencyName) {
-//                        echo "<option value=\"$currencyCode\">$currencyCode - $currencyName</option>";
-//                    }
+                    foreach ($currencies as $currencyCode => $currencyName) {
+                        echo "<option value=" . $currencyCode . ">$currencyName</option>";
+                    }
                     ?>
                 </select>
             </div>
@@ -41,9 +41,9 @@
                 <label for="toCurrency" class="form-label">В валюту:</label>
                 <select id="toCurrency" name="toCurrency" class="form-select">
                     <?php
-//                    foreach ($currencies as $currencyCode => $currencyName) {
-//                        echo "<option value=\"$currencyCode\">$currencyCode - $currencyName</option>";
-//                    }
+                    foreach ($currencies as $currencyCode => $currencyName) {
+                        echo "<option value=" . $currencyCode . ">$currencyName</option>";
+                    }
                     ?>
                 </select>
             </div>
@@ -53,8 +53,37 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Конвертировать</button>
+        <button type="button" class="btn btn-primary" id="currencyForm">Конвертировать</button>
     </form>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#currencyForm').click(function (event) {
+            event.preventDefault();
+            var fromAmount = $('#fromAmount').val();
+            fromAmount = fromAmount ? parseFloat(fromAmount) : 0;
+            var fromCurrency = $('#fromCurrency').val();
+            var toAmount = $('#toAmount').val();
+            toAmount = toAmount ? parseFloat(toAmount) : 0;
+            var toCurrency = $('#toCurrency').val();
+            $.ajax({
+                type: 'POST',
+                url: 'conversion',
+                data: {
+                    fromAmount: fromAmount,
+                    fromCurrency: fromCurrency,
+                    toAmount: toAmount,
+                    toCurrency: toCurrency
+                },
+                success: function (response) {
+                    var results = JSON.parse(response);
+                    $('#toResult').val(results.toResult);
+                    $('#fromResult').val(results.fromResult);
+                }
+            });
+        });
+    });
+</script>
 
 <?php include 'footer.php'; ?>

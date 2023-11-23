@@ -19,11 +19,10 @@ class LoginController
      */
     public function loginUser($post)
     {
+        (new CurrencyJob())->execute();
+
 //        if (isset($post)) {
-            (new CurrencyJob())->execute();
 //        }
 
-        var_dump((new CurrencyConverter())->convertFromRubles(100, 'EUR'));
-        var_dump((new CurrencyConverter())->converttoRubles(100, 'EUR'));
     }
 }
