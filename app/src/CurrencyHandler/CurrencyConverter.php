@@ -8,7 +8,7 @@ class CurrencyConverter
 {
     private $db;
 
-    public function __construct(\PDO $db)
+    public function __construct()
     {
         $database = new DatabaseConnection();
         $this->db = $database->getPdo();

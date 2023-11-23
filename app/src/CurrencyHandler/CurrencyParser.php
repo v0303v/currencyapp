@@ -20,6 +20,7 @@ class CurrencyParser
     /**
      * Используем cURL для получения данных с сайта ЦБ РФ
      * @return void
+     * @throws \Exception
      */
     public function parseCurrencyRates()
     {
@@ -31,7 +32,7 @@ class CurrencyParser
     }
 
     /**
-     * Реализация сохранения данных в базу данных
+     * Реализация сохранения курсов в базу данных
      * @param $data
      * @return void
      * @throws \Exception
